@@ -14,7 +14,8 @@
     "moduleResolution": "node",
     "target": "ES2015",
     "rootDir": "src",
-    "baseUrl": "src"
+    "baseUrl": "src",
+    "types": ["node"]
   },
   "formatCodeOptions": {
     "indentSize": 2,
