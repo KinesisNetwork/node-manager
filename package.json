@@ -1,0 +1,31 @@
+{
+  "name": "kinesis-node-manager",
+  "version": "1.0.0",
+  "description": "Allows 3rd parties to easily connect to Kinesis network nodes",
+  "main": "dist/index.js",
+  "scripts": {
+    "compile": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "lint": "tslint --project tsconfig.json",
+    "lint-fix": "tslint --project tsconfig.json --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KinesisNetwork/node-manager.git"
+  },
+  "keywords": [
+    "Kinesis",
+    "stellar-core"
+  ],
+  "author": "Kinesis Limited",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KinesisNetwork/node-manager/issues"
+  },
+  "homepage": "https://github.com/KinesisNetwork/node-manager#readme",
+  "dependencies": {},
+  "devDependencies": {
+    "tslint": "^5.10.0",
+    "typescript": "^2.9.2"
+  }
+}
