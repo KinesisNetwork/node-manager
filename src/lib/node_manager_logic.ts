@@ -59,3 +59,16 @@ export function selectNodes(nodesList: any): Promise<any> {
 export function getSelectedNodeData(selectedNodesList: any[], allNodes: any): any[] {
   return selectedNodesList.map((node) => allNodes[node])
 }
+
+export function flattenNodesList(networkChosen: any): any {
+  const nodeListObject = {}
+
+  Object.entries(networkChosen).forEach(([key, value]) => {
+    for (let node in value) {
+      const propName = `${key}-${node}`
+      nodeListObject[propName] = value[node]
+    }
+  })
+
+  return nodeListObject
+}

@@ -6,7 +6,7 @@ import { chooseNetwork, getNetworksAndRegions, getSelectedNodeData, selectNodes 
 
 const initialisedVorpal = vorpal()
 
-export default async function startNode() {
+export default async function startNodeManager() {
   try {
     const networksAndRegions: any = await getNetworksAndRegions()
     const networkChosen: string = (await chooseNetwork(Object.keys(networksAndRegions))).network
