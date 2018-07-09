@@ -12,10 +12,14 @@
     "importHelpers": true,
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "ES2015",
+    "target": "ESNext",
     "rootDir": "src",
     "baseUrl": "src",
-    "types": ["node"]
+    "types": [
+      "node",
+      "mocha",
+      "chai"
+    ]
   },
   "formatCodeOptions": {
     "indentSize": 2,

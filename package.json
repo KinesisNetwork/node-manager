@@ -8,8 +8,8 @@
     "lint": "tslint --project tsconfig.json",
     "lint-fix": "tslint --project tsconfig.json --fix",
     "start": "npm run lint && npm run compile && node dist/index.js",
-    "test": "npm run compile && mocha js/**/*.spec.js",
-    "test-watch": "npm run compile && mocha js/**/*.spec.js -w"
+    "test": "npm run compile && mocha dist/**/*.spec.js",
+    "test-watch": "npm run compile && mocha dist/**/*.spec.js -w"
   },
   "repository": {
     "type": "git",
@@ -36,5 +36,11 @@
     "tslint": "^5.10.0",
     "typescript": "^2.9.2",
     "vorpal": "^1.12.0"
+  },
+  "devDependencies": {
+    "@types/chai": "^4.1.4",
+    "@types/mocha": "^5.2.4",
+    "chai": "^4.1.2",
+    "mocha": "^5.2.0"
   }
 }
