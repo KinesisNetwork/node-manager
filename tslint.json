@@ -21,7 +21,8 @@
       true,
       "never"
     ],
-    "no-console": false
+    "no-console": false,
+    "trailing-comma": false
   },
   "rulesDirectory": []
 }

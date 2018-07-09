@@ -28,10 +28,12 @@
     "@types/node": "^10.5.2",
     "chalk": "^2.4.1",
     "figlet": "^1.2.0",
-    "vorpal": "^1.12.0"
-  },
-  "devDependencies": {
+    "flat": "^4.1.0",
+    "inquirer": "^6.0.0",
+    "request": "^2.87.0",
+    "request-promise-native": "^1.0.5",
     "tslint": "^5.10.0",
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "vorpal": "^1.12.0"
   }
 }
