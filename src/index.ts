@@ -16,21 +16,26 @@ figlet('KINESIS MANAGER', (_, d) => {
     .action(async () => {
       checkIfDockerIsInstalled()
 
-      const networksAndRegions: any = await getNetworksAndRegions()
-      const networkChosen: string = (await chooseNetwork(Object.keys(networksAndRegions))).network
+      try {
+        const networksAndRegions: any = await getNetworksAndRegions()
+        const networkChosen: string = (await chooseNetwork(Object.keys(networksAndRegions))).network
 
-      const flattenedNodes: any = flatten(
-        networksAndRegions[networkChosen],
-        {
-          delimiter: '-',
-          maxDepth: 2
-        }
-      )
+        const flattenedNodes: any = flatten(
+          networksAndRegions[networkChosen],
+          {
+            delimiter: '-',
+            maxDepth: 2
+          }
+        )
 
-      const nodesSelected = await selectNodes(flattenedNodes)
+        const nodesSelected = await selectNodes(flattenedNodes)
 
-      initialisedVorpal.log(chalk.blue(JSON.stringify(nodesSelected, null, 2)))
-      initialisedVorpal.log(chalk.yellow(JSON.stringify(flattenedNodes, null, 2)))
+        // TODO: replace comments with action and remove them
+        initialisedVorpal.log(chalk.blue(JSON.stringify(nodesSelected, null, 2)))
+        initialisedVorpal.log(chalk.yellow(JSON.stringify(flattenedNodes, null, 2)))
+      } catch (error) {
+        initialisedVorpal.log(chalk.red('Unable to fetch data from the server.'))
+      }
     })
 
   initialisedVorpal
@@ -62,7 +67,7 @@ function chooseNetwork(keys: string[]): Promise<any> {
         type: 'list',
         name: 'network',
         message: 'Which network do you choose?',
-        choices: keys
+        choices: keys,
       },
     ])
 }
@@ -84,7 +89,7 @@ function selectNodes(nodesList: any): Promise<any> {
         choices: Object.keys(nodesList),
         validate(answer) {
           return hasAtLeastSixNodesSelected(answer)
-        }
+        },
       }
     ])
 }

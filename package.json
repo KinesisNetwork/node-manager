@@ -5,10 +5,11 @@
   "main": "dist/index.js",
   "scripts": {
     "compile": "tsc",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "tslint --project tsconfig.json",
     "lint-fix": "tslint --project tsconfig.json --fix",
-    "start": "npm run lint && npm run compile && node dist/index.js"
+    "start": "npm run lint && npm run compile && node dist/index.js",
+    "test": "npm run compile && mocha js/**/*.spec.js",
+    "test-watch": "npm run compile && mocha js/**/*.spec.js -w"
   },
   "repository": {
     "type": "git",
