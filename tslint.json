@@ -1,18 +1,27 @@
 {
-    "defaultSeverity": "error",
-    "extends": [
-        "tslint:recommended"
+  "defaultSeverity": "error",
+  "extends": [
+    "tslint:recommended"
+  ],
+  "jsRules": {},
+  "rules": {
+    "interface-name": false,
+    "no-var-requires": false,
+    "max-classes-per-file": false,
+    "member-access": false,
+    "object-literal-sort-keys": [
+      false,
+      "shorthand-first"
     ],
-    "jsRules": {},
-    "rules": {
-      "interface-name": false,
-      "no-var-requires": false,
-      "max-classes-per-file": false,
-      "member-access": false,
-      "object-literal-sort-keys": [false, "shorthand-first"],
-      "quotemark": [true, "single"],
-      "semicolon": [true, "never"],
-      "no-console": false
-    },
-    "rulesDirectory": []
+    "quotemark": [
+      true,
+      "single"
+    ],
+    "semicolon": [
+      true,
+      "never"
+    ],
+    "no-console": false
+  },
+  "rulesDirectory": []
 }
