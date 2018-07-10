@@ -13,13 +13,12 @@ import {
   selectNodes
 } from './cli_questions'
 
-import { getNetworkPassPhrase } from './get_network_passphrase'
+import convertJsToYaml from './convert_js_to_yaml'
 
 const initialisedVorpal = vorpal()
 
 export default async function startNodeManager(): Promise<void> {
   let networksAndRegions: any
-  let kinesisServerDetails: any
   try {
     networksAndRegions = await getNetworksAndRegions()
   } catch (error) {
@@ -35,16 +34,9 @@ export default async function startNodeManager(): Promise<void> {
 
   // const nodeName = await giveNameToUserNode()
 
-  try {
-    kinesisServerDetails = await getNetworkPassPhrase()
-  } catch (error) {
-    initialisedVorpal.log(chalk.red(error.message))
-    return
-  }
-
-  // convertJSToYaml(...args)
+  const yaml = await convertJsToYaml()
 
   // TODO: replace logs with action and remove them
-  initialisedVorpal.log(chalk.blue(JSON.stringify(kinesisServerDetails, null, 2)))
+  initialisedVorpal.log(chalk.blue(JSON.stringify(yaml, null, 2)))
   initialisedVorpal.log(chalk.yellow(JSON.stringify(nodesSelectedWithAllData, null, 2)))
 }

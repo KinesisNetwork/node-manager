@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { flattenNodesList, getSelectedNodeData } from './index'
+import { flattenNodesList, getSelectedNodeData } from '.'
 
 describe('node_manager_logic', () => {
   it('#flattenNodesList correctly flattens the regions into nodes list', () => {

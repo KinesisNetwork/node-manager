@@ -1,4 +1,4 @@
-export default function permanentProperties(
+export default function getDeploymentConfig(
   nodeName: string,
   secretKey: string,
   namesFromSelectedNodes,
