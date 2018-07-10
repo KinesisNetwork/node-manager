@@ -13,8 +13,15 @@ figlet('KINESIS MANAGER', (_, d) => {
   initialisedVorpal
     .command('start_node', 'Boot a node against a Kinesis network')
     .action(async () => {
-      checkIfDockerIsInstalled()
-      startNodeManager()
+      try {
+        await checkIfDockerIsInstalled()
+      } catch (e) {
+        initialisedVorpal.log('To continue, please install Docker!')
+        initialisedVorpal.ui.cancel()
+        return
+      }
+
+      await startNodeManager()
     })
 
   initialisedVorpal

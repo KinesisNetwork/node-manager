@@ -51,16 +51,12 @@ function hasAtLeastSixNodesSelected(selectedNodes: string[]): any {
   return true
 }
 
-function addRegionToNodes(nodeList: any, regionAndNodes: any): any {
-  const region = regionAndNodes[0]
-  const nodes = regionAndNodes[1]
+function addRegionToNodes(nodeList: any, [region, nodes]): any {
+  const regionNodeList = Object.keys(nodes).reduce((acc, node) => {
+    const nodeInRegionKey = `${region}-${node}`
+    const nodeLookup = {[nodeInRegionKey]: nodes[node]}
+    return {...acc, ...nodeLookup}
+  }, {})
 
-  for (const node of Object.keys(nodes)) {
-    const nodeInRegion = `${region}-${node}`
-    if (!nodeList[nodeInRegion]) {
-      nodeList[nodeInRegion] = nodes[node]
-    }
-  }
-
-  return nodeList
+  return {...nodeList, ...regionNodeList}
 }
