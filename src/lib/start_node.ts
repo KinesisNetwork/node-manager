@@ -2,12 +2,16 @@ import chalk from 'chalk'
 import * as vorpal from 'vorpal'
 
 import {
-  chooseNetwork,
   flattenNodesList,
   getNetworksAndRegions,
-  getSelectedNodeData,
-  selectNodes
+  getSelectedNodeData
 } from './manage_fetched_data'
+
+import {
+  chooseNetwork,
+  giveNameToUserNode,
+  selectNodes
+} from './cli_questions'
 
 const initialisedVorpal = vorpal()
 
@@ -27,7 +31,9 @@ export default async function startNodeManager(): Promise<void> {
 
   const nodesSelectedWithAllData = getSelectedNodeData(nodesSelected, flattenedNodes)
 
+  const nodeName = await giveNameToUserNode()
+
   // TODO: replace logs with action and remove them
-  initialisedVorpal.log(chalk.blue(JSON.stringify(networkChosen, null, 2)))
+  initialisedVorpal.log(chalk.blue(JSON.stringify(nodeName, null, 2)))
   initialisedVorpal.log(chalk.yellow(JSON.stringify(nodesSelectedWithAllData, null, 2)))
 }
