@@ -4,7 +4,7 @@
   "description": "Allows 3rd parties to easily connect to Kinesis network nodes",
   "main": "dist/index.js",
   "scripts": {
-    "compile": "tsc",
+    "compile": "rm -rf dist && tsc",
     "lint": "tslint --project tsconfig.json",
     "lint-fix": "tslint --project tsconfig.json --fix",
     "start": "npm run lint && npm run compile && node dist/index.js",
@@ -29,7 +29,6 @@
     "@types/node": "^10.5.2",
     "chalk": "^2.4.1",
     "figlet": "^1.2.0",
-    "flat": "^4.1.0",
     "inquirer": "^6.0.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",

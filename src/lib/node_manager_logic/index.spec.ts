@@ -1,9 +1,9 @@
 import { expect } from 'chai'
 
-import { getSelectedNodeData, flattenNodesList } from './lib/node_manager_logic'
+import { flattenNodesList, getSelectedNodeData } from './index'
 
-describe('index', () => {
-  it.only('correctly flattens the regions into nodes list', () => {
+describe('node_manager_logic', () => {
+  it('#flattenNodesList correctly flattens the regions into nodes list', () => {
     const networkChosen = {
       'kau-testnet-oceania': {
         node0: {
@@ -69,7 +69,7 @@ describe('index', () => {
     expect(nodesListResult).to.deep.equal(expectedNodesList)
   })
 
-  it('returns the correct nodes list objects', () => {
+  it('#getSelectedNodeData returns the correct nodes list objects', () => {
     const nodesList = {
       'kau-testnet-oceania-node0': {
         publicKey: '123',
@@ -127,4 +127,5 @@ describe('index', () => {
     expect(nodesListResult).to.have.lengthOf(3)
     expect(nodesListResult).to.deep.equal(expectedNodesList)
   })
+
 })

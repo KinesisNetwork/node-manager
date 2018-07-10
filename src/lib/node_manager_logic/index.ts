@@ -1,18 +1,5 @@
-import { ChildProcess, exec } from 'child_process'
 import * as inquirer from 'inquirer'
 import * as rp from 'request-promise-native'
-import * as vorpal from 'vorpal'
-
-const initialisedVorpal = vorpal()
-
-export function checkIfDockerIsInstalled(): ChildProcess {
-  return exec('docker', (error: Error) => {
-    if (error) {
-      initialisedVorpal.log('To continue, please install Docker!')
-      initialisedVorpal.ui.cancel()
-    }
-  })
-}
 
 export function getNetworksAndRegions(): Promise<any> {
   return rp({
@@ -32,13 +19,6 @@ export function chooseNetwork(keys: string[]): Promise<any> {
         choices: keys,
       },
     ])
-}
-
-function hasAtLeastSixNodesSelected(selectedNodes: string[]): any {
-  if (selectedNodes.length < 6) {
-    return 'You must select at least six nodes.'
-  }
-  return true
 }
 
 export function selectNodes(nodesList: any): Promise<any> {
@@ -61,14 +41,26 @@ export function getSelectedNodeData(selectedNodesList: any[], allNodes: any): an
 }
 
 export function flattenNodesList(networkChosen: any): any {
-  const nodeListObject = {}
+  return Object.entries(networkChosen).reduce(addRegionToNodes, {})
+}
 
-  Object.entries(networkChosen).forEach(([key, value]) => {
-    for (let node in value) {
-      const propName = `${key}-${node}`
-      nodeListObject[propName] = value[node]
+function hasAtLeastSixNodesSelected(selectedNodes: string[]): any {
+  if (selectedNodes.length < 6) {
+    return 'You must select at least six nodes.'
+  }
+  return true
+}
+
+function addRegionToNodes(nodeList: any, regionAndNodes: any): any {
+  const region = regionAndNodes[0]
+  const nodes = regionAndNodes[1]
+
+  for (const node of Object.keys(nodes)) {
+    const nodeInRegion = `${region}-${node}`
+    if (!nodeList[nodeInRegion]) {
+      nodeList[nodeInRegion] = nodes[node]
     }
-  })
+  }
 
-  return nodeListObject
+  return nodeList
 }
