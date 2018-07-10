@@ -7,7 +7,7 @@ import {
   getNetworksAndRegions,
   getSelectedNodeData,
   selectNodes
-} from './node_manager_logic'
+} from './manage_fetched_data'
 
 const initialisedVorpal = vorpal()
 
