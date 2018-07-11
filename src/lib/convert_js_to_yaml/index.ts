@@ -4,8 +4,8 @@ import * as vorpal from 'vorpal'
 
 const initialisedVorpal = vorpal()
 
-export default async function convertJsToYaml(): Promise<any> {
-  let kinesisServerDetails: any
+export default async function convertJsToYaml(networkChosen: string): Promise<any> {
+  let kinesisServerDetails: any[]
   try {
     kinesisServerDetails = await getNetworkPassPhrase()
   } catch (error) {
@@ -13,7 +13,9 @@ export default async function convertJsToYaml(): Promise<any> {
     return
   }
 
-  return kinesisServerDetails
+  const networkDetails = getSelectedNetworkDetails(kinesisServerDetails, networkChosen)
+
+  return networkDetails
 }
 
 function getNetworkPassPhrase(): Promise<any> {
@@ -22,4 +24,9 @@ function getNetworkPassPhrase(): Promise<any> {
     method: 'GET',
     json: true,
   })
+}
+
+export function getSelectedNetworkDetails(serverDetails: any[], networkChosen: string) {
+  const [networkDetails] = serverDetails.filter(({ horizonURL }) => horizonURL.includes(networkChosen))
+  return networkDetails
 }

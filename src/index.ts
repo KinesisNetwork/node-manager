@@ -2,8 +2,8 @@ import chalk from 'chalk'
 import * as figlet from 'figlet'
 import * as vorpal from 'vorpal'
 
-import checkIfDockerIsInstalled from './lib/check_docker'
-import startNodeManager from './lib/start_node'
+import checkIfDockerIsInstalled from 'lib/check_docker'
+import startNodeManager from 'lib/start_node'
 
 const initialisedVorpal = vorpal()
 

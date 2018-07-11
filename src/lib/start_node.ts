@@ -34,9 +34,10 @@ export default async function startNodeManager(): Promise<void> {
 
   // const nodeName = await giveNameToUserNode()
 
-  const yaml = await convertJsToYaml()
+  const yaml = await convertJsToYaml(networkChosen)
 
   // TODO: replace logs with action and remove them
-  initialisedVorpal.log(chalk.blue(JSON.stringify(yaml, null, 2)))
-  initialisedVorpal.log(chalk.yellow(JSON.stringify(nodesSelectedWithAllData, null, 2)))
+  initialisedVorpal.log(chalk.magenta(JSON.stringify(yaml, null, 2)))
+  initialisedVorpal.log(chalk.blue(JSON.stringify(nodesSelectedWithAllData, null, 2)))
+  initialisedVorpal.log(chalk.yellow(JSON.stringify(networkChosen, null, 2)))
 }
