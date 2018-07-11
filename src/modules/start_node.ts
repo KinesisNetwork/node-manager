@@ -9,7 +9,7 @@ import {
 
 import {
   chooseNetwork,
-  // giveNameToUserNode,
+  giveNameToUserNode,
   selectNodes
 } from './cli_questions'
 
@@ -32,12 +32,15 @@ export default async function startNodeManager(): Promise<void> {
   const nodesSelected = (await selectNodes(flattenedNodes)).nodes
   const nodesSelectedWithAllData = getSelectedNodeData(nodesSelected, flattenedNodes)
 
-  // const nodeName = await giveNameToUserNode()
+  const nodeName = (await giveNameToUserNode()).nodeName
+    .replace(/\s/g, '')
+    .replace(/[`~!@#\$%\^&\*\(\)-_=\+\{\}\[\]\|;:'",\.<>\?\/\\]/g, '')
+    .toUpperCase()
 
-  const yaml = await convertJsToYaml(networkChosen)
+  const yaml = await convertJsToYaml(networkChosen, nodesSelectedWithAllData, nodeName)
 
   // TODO: replace logs with action and remove them
   initialisedVorpal.log(chalk.magenta(JSON.stringify(yaml, null, 2)))
-  initialisedVorpal.log(chalk.blue(JSON.stringify(nodesSelectedWithAllData, null, 2)))
-  initialisedVorpal.log(chalk.yellow(JSON.stringify(networkChosen, null, 2)))
+  // initialisedVorpal.log(chalk.blue(JSON.stringify(nodesSelectedWithAllData, null, 2)))
+  // initialisedVorpal.log(chalk.yellow(JSON.stringify(networkChosen, null, 2)))
 }

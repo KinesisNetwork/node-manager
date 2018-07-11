@@ -1,4 +1,13 @@
 export default function getDeploymentConfig(deploymentConfigVariables: DeploymentConfigVariables) {
+  const validators = [
+    deploymentConfigVariables.userKeys.publicKey,
+    ...deploymentConfigVariables.selectedNodesConfigs.publicKeys
+  ]
+  const historyPeers = [
+    deploymentConfigVariables.nodeNameByUser,
+    ...deploymentConfigVariables.selectedNodesConfigs.names
+  ]
+
   return {
     version: '3.3',
     services: {
@@ -30,17 +39,18 @@ export default function getDeploymentConfig(deploymentConfigVariables: Deploymen
           `${deploymentConfigVariables.nodeNameByUser}_POSTGRES_PORT=5432`,
           `${deploymentConfigVariables.nodeNameByUser}_PEER_PORT=11625`,
           `${deploymentConfigVariables.nodeNameByUser}_HTTP_PORT=11626`,
-          `${deploymentConfigVariables.nodeNameByUser}_NODE_SEED=${secretKey}`,
-          `PREFERRED_PEERS=${deploymentConfigVariables.selectedNodesConfigs.endpoints}`,
+          `${deploymentConfigVariables.nodeNameByUser}_NODE_SEED=${deploymentConfigVariables.userKeys.privateKey}`,
+          `PREFERRED_PEERS=${JSON.stringify(deploymentConfigVariables.selectedNodesConfigs.endpoints)}`,
           'THRESHOLD_PERCENT=66',
           'NODE_IS_VALIDATOR=true',
           'CATCHUP_COMPLETE=true',
           'UNSAFE_QUORUM=false',
           'FAILURE_SAFETY=-1',
-          `VALIDATORS=[${publicKey}, ${deploymentConfigVariables.selectedNodesConfigs.publicKeys}]`,
-          `HISTORY_PEERS=[${deploymentConfigVariables.nodeNameByUser}, ${deploymentConfigVariables.selectedNodesConfigs.names}]`,
+          `VALIDATORS=${JSON.stringify(validators)}`,
+          `HISTORY_PEERS=${JSON.stringify(historyPeers)}`,
           `NETWORK_PASSPHRASE=${deploymentConfigVariables.networkPassphrase}`,
-          `HISTORY_GET=aws s3 cp --region eu-west-1 s3://kinesis-network-history/${deploymentConfigVariables.selectedNetwork}/%s/{0} {1}`
+          `HISTORY_GET=aws s3 cp --region eu-west-1\
+            s3://kinesis-network-history/${deploymentConfigVariables.selectedNetwork}/%s/{0} {1}`
         ]
       },
       horizon: {

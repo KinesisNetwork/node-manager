@@ -13,6 +13,6 @@ interface SelectedNodesConfigs {
 }
 
 interface UserKeys {
-  secret: string
+  privateKey: string
   publicKey: string
 }
