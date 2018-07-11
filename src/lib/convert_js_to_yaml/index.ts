@@ -2,6 +2,8 @@ import chalk from 'chalk'
 import * as rp from 'request-promise-native'
 import * as vorpal from 'vorpal'
 
+import getDeploymentConfig from './deployment_config'
+
 const initialisedVorpal = vorpal()
 
 export default async function convertJsToYaml(networkChosen: string): Promise<any> {
@@ -26,7 +28,11 @@ function getNetworkPassPhrase(): Promise<any> {
   })
 }
 
-export function getSelectedNetworkDetails(serverDetails: any[], networkChosen: string) {
+export function getSelectedNetworkDetails(serverDetails: any[], networkChosen: string): any {
   const [networkDetails] = serverDetails.filter(({ horizonURL }) => horizonURL.includes(networkChosen))
   return networkDetails
+}
+
+export function extractValuesFromSelectedNodes(selectedNodes: any[], nodeProperty: string): string[] {
+  return selectedNodes.map((node) => node[nodeProperty])
 }

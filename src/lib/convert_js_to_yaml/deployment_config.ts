@@ -1,13 +1,4 @@
-export default function getDeploymentConfig(
-  nodeName: string,
-  secretKey: string,
-  namesFromSelectedNodes,
-  publicKey: string,
-  publicKeysFromSelectedNodes: string[],
-  selectedNetwork,
-  endpointsFromNodeSelection,
-  passPhrase
-) {
+export default function getDeploymentConfig(deploymentConfigVariables: DeploymentConfigVariables) {
   return {
     version: '3.3',
     services: {
@@ -23,7 +14,7 @@ export default function getDeploymentConfig(
         image: 'abxit/kinesis-core:testnet-v1',
         command: [
           '/start',
-          nodeName,
+          deploymentConfigVariables.nodeNameByUser,
           'fresh',
           'forcescp'
         ],
@@ -36,20 +27,20 @@ export default function getDeploymentConfig(
           'PGPASSWORD=dbpw',
           'PGHOST=db',
           'DATABASE=postgresql://dbname=stellar user=postgres host=db',
-          `${nodeName}_POSTGRES_PORT=5432`,
-          `${nodeName}_PEER_PORT=11625`,
-          `${nodeName}_HTTP_PORT=11626`,
-          `${nodeName}_NODE_SEED=${secretKey}`,
-          `PREFERRED_PEERS=${endpointsFromNodeSelection}`,
+          `${deploymentConfigVariables.nodeNameByUser}_POSTGRES_PORT=5432`,
+          `${deploymentConfigVariables.nodeNameByUser}_PEER_PORT=11625`,
+          `${deploymentConfigVariables.nodeNameByUser}_HTTP_PORT=11626`,
+          `${deploymentConfigVariables.nodeNameByUser}_NODE_SEED=${secretKey}`,
+          `PREFERRED_PEERS=${deploymentConfigVariables.selectedNodesConfigs.endpoints}`,
           'THRESHOLD_PERCENT=66',
           'NODE_IS_VALIDATOR=true',
           'CATCHUP_COMPLETE=true',
           'UNSAFE_QUORUM=false',
           'FAILURE_SAFETY=-1',
-          `VALIDATORS=[${publicKey}, ${publicKeysFromSelectedNodes}]`,
-          `HISTORY_PEERS=[${nodeName}, ${namesFromSelectedNodes}]`,
-          `NETWORK_PASSPHRASE=${passPhrase}`,
-          `HISTORY_GET=aws s3 cp --region eu-west-1 s3://kinesis-network-history/${selectedNetwork}/%s/{0} {1}`
+          `VALIDATORS=[${publicKey}, ${deploymentConfigVariables.selectedNodesConfigs.publicKeys}]`,
+          `HISTORY_PEERS=[${deploymentConfigVariables.nodeNameByUser}, ${deploymentConfigVariables.selectedNodesConfigs.names}]`,
+          `NETWORK_PASSPHRASE=${deploymentConfigVariables.networkPassphrase}`,
+          `HISTORY_GET=aws s3 cp --region eu-west-1 s3://kinesis-network-history/${deploymentConfigVariables.selectedNetwork}/%s/{0} {1}`
         ]
       },
       horizon: {
