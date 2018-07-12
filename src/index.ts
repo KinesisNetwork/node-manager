@@ -2,8 +2,8 @@ import chalk from 'chalk'
 import * as figlet from 'figlet'
 import * as vorpal from 'vorpal'
 
-import startNodeManager from 'commands/start_node'
-import { logErrors, runCommandInTerminal } from 'modules/run_commands_in_exec'
+import startNodeManager from './commands/start_node'
+import { logErrors, runCommandInTerminal } from './modules/run_commands_in_exec'
 
 const initialisedVorpal = vorpal()
 

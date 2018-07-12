@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import { flattenNodesList, getSelectedNodeData } from 'modules/manage_networks_and_regions_data'
+import { flattenNodesList, getSelectedNodeData } from '../modules/manage_networks_and_regions_data'
 
 describe('node_manager_logic', () => {
   it('#flattenNodesList correctly flattens the regions into nodes list', () => {

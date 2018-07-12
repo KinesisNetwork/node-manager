@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "outDir": "dist",
+    "outDir": "./dist",
     "sourceMap": true,
     "declaration": false,
     "noImplicitAny": false,
@@ -13,19 +13,16 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "ESNext",
-    "rootDir": "src",
-    "baseUrl": "src",
-    "paths": {
-      "*": [
-        "*"
-      ]
-    },
+    "rootDir": "./src",
     "types": [
       "node",
       "mocha",
       "chai"
     ]
   },
+  "include": [
+    "src/**/*"
+  ],
   "formatCodeOptions": {
     "indentSize": 2,
     "tabSize": 2
