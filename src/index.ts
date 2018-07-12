@@ -2,7 +2,7 @@ import chalk from 'chalk'
 import * as figlet from 'figlet'
 import * as vorpal from 'vorpal'
 
-import runCommandInTerminal from './modules/run_commands_in_exec'
+import { logErrors, runCommandInTerminal } from './modules/run_commands_in_exec'
 import startNodeManager from './modules/start_node'
 
 const initialisedVorpal = vorpal()
@@ -16,8 +16,7 @@ figlet('KINESIS MANAGER', (_, d) => {
       try {
         await runCommandInTerminal('docker')
       } catch (error) {
-        initialisedVorpal.log('To continue, please install Docker!')
-        initialisedVorpal.ui.cancel()
+        logErrors('To continue, please install Docker!')
         return
       }
 
@@ -26,20 +25,18 @@ figlet('KINESIS MANAGER', (_, d) => {
       try {
         await runCommandInTerminal('docker swarm init')
       } catch (error) {
-        initialisedVorpal.log(error.message)
-        initialisedVorpal.ui.cancel()
+        logErrors(error.message)
         return
       }
 
       try {
-        await runCommandInTerminal(`docker stack deploy --compose-file deployment_config.yml ${userNetwork - userNodeName}`)
+        await runCommandInTerminal(
+          `docker stack deploy --compose-file deployment_config.yml ${userNetwork}-${userNodeName}`
+        )
       } catch (error) {
-        initialisedVorpal.log(error.message)
-        initialisedVorpal.ui.cancel()
+        logErrors(error.message)
         return
       }
-
-      // initialisedVorpal.log(chalk.cyan(message))
     })
 
   initialisedVorpal
