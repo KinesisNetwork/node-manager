@@ -1,5 +1,8 @@
 import chalk from 'chalk'
+import * as fs from 'fs'
 import { Keypair } from 'js-kinesis-sdk'
+import * as yaml from 'js-yaml'
+import * as path from 'path'
 import * as rp from 'request-promise-native'
 import * as vorpal from 'vorpal'
 
@@ -7,7 +10,7 @@ import getDeploymentConfig from './deployment_config'
 
 const initialisedVorpal = vorpal()
 
-export default async function convertJsToYaml(
+export default async function generateYamlConfigFile(
   networkChosen: string,
   selectedNodes: any[],
   nodeNameByUser: string
@@ -28,7 +31,7 @@ export default async function convertJsToYaml(
 
   const keypair = generateKeypair()
 
-  const deploymentConfig = getDeploymentConfig({
+  const deploymentConfigInJs = getDeploymentConfig({
     nodeNameByUser,
     userKeys: keypair,
     selectedNodesConfigs: {
@@ -40,7 +43,7 @@ export default async function convertJsToYaml(
     selectedNetwork: networkChosen
   })
 
-  return deploymentConfig
+  convertJsIntoYaml(deploymentConfigInJs)
 }
 
 function getKinesisServerDetails(): Promise<any> {
@@ -66,4 +69,10 @@ function generateKeypair(): any {
     publicKey: keypair.publicKey(),
     privateKey: keypair.secret()
   }
+}
+
+function convertJsIntoYaml(configInJs) {
+  const deploymentYaml = yaml.safeDump(configInJs)
+  const deploymentFilePath = path.join(__dirname, '../../../', 'deployment_config.yml')
+  fs.writeFileSync(deploymentFilePath, deploymentYaml)
 }

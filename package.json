@@ -31,6 +31,7 @@
     "figlet": "^1.2.0",
     "inquirer": "^6.0.0",
     "js-kinesis-sdk": "^0.9.7",
+    "js-yaml": "^3.12.0",
     "request": "^2.87.0",
     "request-promise-native": "^1.0.5",
     "tslint": "^5.10.0",

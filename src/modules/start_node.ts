@@ -14,7 +14,7 @@ import {
   selectNodes
 } from './cli_questions_and_validations'
 
-import convertJsToYaml from './convert_js_to_yaml'
+import generateYamlConfigFile from './convert_js_to_yaml'
 
 const initialisedVorpal = vorpal()
 
@@ -35,10 +35,10 @@ export default async function startNodeManager(): Promise<void> {
 
   const nodeName = removeWhiteSpaceAndConvertToUppercase((await giveNameToUserNode()).nodeName)
 
-  const yaml = await convertJsToYaml(networkChosen, nodesSelectedWithAllData, nodeName)
+  await generateYamlConfigFile(networkChosen, nodesSelectedWithAllData, nodeName)
 
   // TODO: replace logs with action and remove them
-  initialisedVorpal.log(chalk.magenta(JSON.stringify(yaml, null, 2)))
+  // initialisedVorpal.log(chalk.magenta(JSON.stringify(deploymentConfigInJs, null, 2)))
   // initialisedVorpal.log(chalk.blue(JSON.stringify(nodesSelectedWithAllData, null, 2)))
   // initialisedVorpal.log(chalk.yellow(JSON.stringify(networkChosen, null, 2)))
 }
