@@ -10,8 +10,9 @@ import {
 import {
   chooseNetwork,
   giveNameToUserNode,
+  removeWhiteSpaceAndConvertToUppercase,
   selectNodes
-} from './cli_questions'
+} from './cli_questions_and_validations'
 
 import convertJsToYaml from './convert_js_to_yaml'
 
@@ -32,10 +33,7 @@ export default async function startNodeManager(): Promise<void> {
   const nodesSelected = (await selectNodes(flattenedNodes)).nodes
   const nodesSelectedWithAllData = getSelectedNodeData(nodesSelected, flattenedNodes)
 
-  const nodeName = (await giveNameToUserNode()).nodeName
-    .replace(/\s/g, '')
-    .replace(/[`~!@#\$%\^&\*\(\)-_=\+\{\}\[\]\|;:'",\.<>\?\/\\]/g, '')
-    .toUpperCase()
+  const nodeName = removeWhiteSpaceAndConvertToUppercase((await giveNameToUserNode()).nodeName)
 
   const yaml = await convertJsToYaml(networkChosen, nodesSelectedWithAllData, nodeName)
 

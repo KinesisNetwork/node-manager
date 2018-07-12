@@ -3,7 +3,7 @@ import { expect } from 'chai'
 import {
   extractValuesFromSelectedNodes,
   getSelectedNetworkDetails
-} from '.'
+} from '../modules/convert_js_to_yaml'
 
 describe('convert js to yaml', () => {
   it('#getHorizonURL returns the horizonURL for the correct network', () => {
