@@ -18,5 +18,5 @@ export default async function startNodeManager(): Promise<void> {
   const nodesSelectedWithAllData: any[] = await getSelectedNodesWithAllData(networksAndRegions[networkChosen])
   const nodeName: string = removeWhiteSpaceAndConvertToUppercase((await giveNameToUserNode()).nodeName)
 
-  await generateYamlConfigFile(networkChosen, nodesSelectedWithAllData, nodeName)
+  await generateYamlConfigFile({ networkChosen, nodesData: nodesSelectedWithAllData, nodeName })
 }

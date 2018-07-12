@@ -16,3 +16,9 @@ interface UserKeys {
   privateKey: string
   publicKey: string
 }
+
+interface YamlConfigInput {
+  networkChosen: string
+  nodesData: any[]
+  nodeName: string
+}

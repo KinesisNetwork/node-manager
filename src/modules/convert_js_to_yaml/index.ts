@@ -11,11 +11,7 @@ import { fetchKinesisServerDetails } from '../fetch_data'
 
 const initialisedVorpal = vorpal()
 
-export default async function generateYamlConfigFile(
-  networkChosen: string,
-  selectedNodes: any[],
-  nodeNameByUser: string
-): Promise<any> {
+export default async function generateYamlConfigFile(yamlConfigInput: YamlConfigInput): Promise<any> {
   let kinesisServerDetails: any[]
   try {
     kinesisServerDetails = await fetchKinesisServerDetails()
@@ -24,16 +20,16 @@ export default async function generateYamlConfigFile(
     return
   }
 
-  const networkDetails = getSelectedNetworkDetails(kinesisServerDetails, networkChosen)
+  const networkDetails = getSelectedNetworkDetails(kinesisServerDetails, yamlConfigInput.networkChosen)
 
-  const publicKeysFromSelectedNodes = extractValuesFromSelectedNodes(selectedNodes, 'publicKey')
-  const endpointsFromSelectedNodes = extractValuesFromSelectedNodes(selectedNodes, 'endpoint')
-  const namesFromSelectedNodes = extractValuesFromSelectedNodes(selectedNodes, 'name')
+  const publicKeysFromSelectedNodes = extractValuesFromSelectedNodes(yamlConfigInput.nodesData, 'publicKey')
+  const endpointsFromSelectedNodes = extractValuesFromSelectedNodes(yamlConfigInput.nodesData, 'endpoint')
+  const namesFromSelectedNodes = extractValuesFromSelectedNodes(yamlConfigInput.nodesData, 'name')
 
   const keypair = generateKeypair()
 
   const deploymentConfigInJs = getDeploymentConfig({
-    nodeNameByUser,
+    nodeNameByUser: yamlConfigInput.nodeName,
     userKeys: keypair,
     selectedNodesConfigs: {
       publicKeys: publicKeysFromSelectedNodes,
@@ -41,7 +37,7 @@ export default async function generateYamlConfigFile(
       names: namesFromSelectedNodes
     },
     networkPassphrase: networkDetails.networkPassphrase,
-    selectedNetwork: networkChosen
+    selectedNetwork: yamlConfigInput.networkChosen
   })
 
   convertJsIntoYaml(deploymentConfigInJs)
