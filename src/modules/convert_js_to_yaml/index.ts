@@ -3,10 +3,11 @@ import * as fs from 'fs'
 import { Keypair } from 'js-kinesis-sdk'
 import * as yaml from 'js-yaml'
 import * as path from 'path'
-import * as rp from 'request-promise-native'
 import * as vorpal from 'vorpal'
 
 import getDeploymentConfig from './deployment_config'
+
+import { fetchKinesisServerDetails } from '../fetch_data'
 
 const initialisedVorpal = vorpal()
 
@@ -17,7 +18,7 @@ export default async function generateYamlConfigFile(
 ): Promise<any> {
   let kinesisServerDetails: any[]
   try {
-    kinesisServerDetails = await getKinesisServerDetails()
+    kinesisServerDetails = await fetchKinesisServerDetails()
   } catch (error) {
     initialisedVorpal.log(chalk.red(error.message))
     return
@@ -46,14 +47,6 @@ export default async function generateYamlConfigFile(
   convertJsIntoYaml(deploymentConfigInJs)
 }
 
-function getKinesisServerDetails(): Promise<any> {
-  return rp({
-    uri: 'https://s3-ap-southeast-2.amazonaws.com/kinesis-config/kinesis-server-details.json',
-    method: 'GET',
-    json: true,
-  })
-}
-
 export function getSelectedNetworkDetails(serverDetails: any[], networkChosen: string): any {
   const [networkDetails] = serverDetails.filter(({ horizonURL }) => horizonURL.includes(networkChosen))
   return networkDetails
@@ -71,7 +64,7 @@ function generateKeypair(): any {
   }
 }
 
-function convertJsIntoYaml(configInJs) {
+function convertJsIntoYaml(configInJs: any): void {
   const deploymentYaml = yaml.safeDump(configInJs)
   const deploymentFilePath = path.join(__dirname, '../../../', 'deployment_config.yml')
   fs.writeFileSync(deploymentFilePath, deploymentYaml)
