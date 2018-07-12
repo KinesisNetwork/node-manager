@@ -1,15 +1,15 @@
 import {
   getSelectedNodesWithAllData,
   networksAndRegionsLookup
-} from './manage_networks_and_regions_data'
+} from 'modules/manage_networks_and_regions_data'
 
 import {
   chooseNetwork,
   giveNameToUserNode,
   removeWhiteSpaceAndConvertToUppercase
-} from './cli_questions_and_validations'
+} from 'modules/cli_questions_and_validations'
 
-import generateYamlConfigFile from './convert_js_to_yaml'
+import generateYamlConfigFile from 'modules/convert_js_to_yaml'
 
 export default async function startNodeManager(): Promise<any> {
   const networksAndRegions = await networksAndRegionsLookup()
