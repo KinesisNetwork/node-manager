@@ -11,7 +11,7 @@ import {
 
 import generateYamlConfigFile from './convert_js_to_yaml'
 
-export default async function startNodeManager(): Promise<void> {
+export default async function startNodeManager(): Promise<any> {
   const networksAndRegions = await networksAndRegionsLookup()
 
   const networkChosen: string = (await chooseNetwork(Object.keys(networksAndRegions))).network
@@ -19,4 +19,6 @@ export default async function startNodeManager(): Promise<void> {
   const nodeName: string = removeWhiteSpaceAndConvertToUppercase((await giveNameToUserNode()).nodeName)
 
   await generateYamlConfigFile({ networkChosen, nodesData: nodesSelectedWithAllData, nodeName })
+
+  return { networkChosen, nodeName }
 }
