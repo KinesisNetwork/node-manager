@@ -61,6 +61,17 @@ export function userNodeNameValidation(userNodeName) {
   return true
 }
 
+export function confirmLocalNodesConfig() {
+  return inquirer
+    .prompt([
+      {
+        type: 'confirm',
+        message: 'When you have your configuration file ready at the right location, press Yes to continue!',
+        name: 'isConfirmed'
+      }
+    ])
+}
+
 export function removeWhiteSpaceAndConvertToUppercase(userNodeName: string) {
   return userNodeName
     .replace(/[\s]/g, '')

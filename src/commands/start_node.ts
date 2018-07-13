@@ -11,8 +11,8 @@ import {
 
 import generateYamlConfigFile from '../modules/convert_js_to_yaml'
 
-export default async function startNodeManager(): Promise<any> {
-  const networksAndRegions = await networksAndRegionsLookup()
+export default async function startNodeManager(configFile: any = {}): Promise<any> {
+  const networksAndRegions = await networksAndRegionsLookup(configFile)
 
   const networkChosen: string = (await chooseNetwork(Object.keys(networksAndRegions))).network
   const nodesSelectedWithAllData: any[] = await getSelectedNodesWithAllData(networksAndRegions[networkChosen])

@@ -26,15 +26,16 @@ describe('convert js to yaml', () => {
   it('#getSelectedNetworkDetails throws an error if no horizonURL key is found', () => {
     const networks = [
       {
-        name: "Kinesis KAU Testnet",
+        name: 'Kinesis KAU Testnet',
       },
       {
-        name: "Kinesis KAU Livenet",
+        name: 'Kinesis KAU Livenet',
         horizonURL: 'https://kau-livenet/kinesisgroup.io'
       }
     ]
 
-    expect(() => getSelectedNetworkDetails(networks, 'kau-testnet')).to.throw(Error, 'Some required data are missing.')
+    expect(() => getSelectedNetworkDetails(networks, 'kau-testnet'))
+      .to.throw(Error, 'Couldn\'t find either a url or a network passphrase for the selected network.')
     expect(() => getSelectedNetworkDetails(networks, 'kau-livenet')).to.not.throw()
   })
 

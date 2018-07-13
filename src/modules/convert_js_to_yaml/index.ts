@@ -47,7 +47,7 @@ export function getSelectedNetworkDetails(networks: any[], networkChosen: string
   const [networkDetails] = networks.filter(({ horizonURL }) => horizonURL && horizonURL.includes(networkChosen))
 
   if (!networkDetails) {
-    throw new Error('Some required data are missing.')
+    throw new Error('Couldn\'t find either a url or a network passphrase for the selected network.')
   }
   return networkDetails
 }

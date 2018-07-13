@@ -2,15 +2,16 @@ import chalk from 'chalk'
 import * as vorpal from 'vorpal'
 
 import { selectNodes } from './cli_questions_and_validations'
-
 import { fetchNetworksAndRegions } from './fetch_data'
 
 const initialisedVorpal = vorpal()
 
-export async function networksAndRegionsLookup(): Promise<any> {
+export async function networksAndRegionsLookup(configFile: any = {}): Promise<any> {
   let networksAndRegions: any
   try {
-    networksAndRegions = await fetchNetworksAndRegions()
+    networksAndRegions = Object.keys(configFile).length ?
+      configFile :
+      await fetchNetworksAndRegions()
 
     if (!networksAndRegions || networksAndRegions === {}) {
       throw Error('No network and nodes data could be found.')

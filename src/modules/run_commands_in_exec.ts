@@ -15,7 +15,7 @@ export function runCommandInTerminal(command: string): Promise<ChildProcess> {
         rej(error)
       }
 
-      initialisedVorpal.log(chalk.green(stdout))
+      initialisedVorpal.log(chalk.yellow(stdout))
       res()
     })
   })

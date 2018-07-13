@@ -1,3 +1,4 @@
 node_modules
 dist
 deployment_config.yml
+network_config.json
