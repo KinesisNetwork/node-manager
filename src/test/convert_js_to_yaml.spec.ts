@@ -20,7 +20,7 @@ describe('convert js to yaml', () => {
       }
     ]
 
-    expect(() => getSelectedNetworkDetails(networks, undefined)).to.throw()
+    expect(() => getSelectedNetworkDetails(networks, null)).to.throw()
   })
 
   it('#getSelectedNetworkDetails throws an error if no horizonURL key is found', () => {

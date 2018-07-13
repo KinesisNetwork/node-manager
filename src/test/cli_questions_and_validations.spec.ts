@@ -15,17 +15,15 @@ describe('cli questions and validations', () => {
     expect(convertedNodeName).to.equal(expectedNodeName)
   })
 
-  describe('#userNodeNameValidation', () => {
-    it('returns warning message if nothing is entered', () => {
-      const returnedWarningMessage = userNodeNameValidation('')
+  it('#userNodeNameValidation returns warning message if nothing is entered', () => {
+    const returnedWarningMessage = userNodeNameValidation('')
 
-      expect(returnedWarningMessage).to.equal('Please enter a valid node name!')
-    })
+    expect(returnedWarningMessage).to.equal('Please enter a valid node name!')
+  })
 
-    it('should return warning message if the input contains special characters', () => {
-      const returnedWarningMessage = userNodeNameValidation('^Bob & Liz $\'')
+  it('#userNodeNameValidation should return warning message if the input contains special characters', () => {
+    const returnedWarningMessage = userNodeNameValidation('^Bob & Liz $\'')
 
-      expect(returnedWarningMessage).to.equal('You may only use letters and numbers!')
-    })
+    expect(returnedWarningMessage).to.equal('You may only use letters and numbers!')
   })
 })
