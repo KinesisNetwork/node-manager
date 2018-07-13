@@ -61,7 +61,7 @@ export function userNodeNameValidation(userNodeName) {
   return true
 }
 
-export function confirmLocalNodesConfig() {
+export function confirmExistanceOfLocalNodesConfig() {
   return inquirer
     .prompt([
       {

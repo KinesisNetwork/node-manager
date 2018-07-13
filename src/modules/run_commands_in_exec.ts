@@ -21,6 +21,18 @@ export function runCommandInTerminal(command: string): Promise<ChildProcess> {
   })
 }
 
+export function checkIfDockerInstalled() {
+  return runCommandInTerminal('docker')
+}
+
+export function runDockerSwarmInit() {
+  return runCommandInTerminal('docker swarm init')
+}
+
+export async function dockerStackDeploy(userNetwork: any, userNodeName: any) {
+  await runCommandInTerminal(`docker stack deploy --compose-file deployment_config.yml ${userNetwork}-${userNodeName}`)
+}
+
 export function logErrors(errorMessage: string): void {
   initialisedVorpal.log(chalk.red(errorMessage))
   initialisedVorpal.ui.cancel()
