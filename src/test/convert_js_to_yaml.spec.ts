@@ -6,7 +6,39 @@ import {
 } from '../modules/convert_js_to_yaml'
 
 describe('convert js to yaml', () => {
-  it('#getHorizonURL returns the horizonURL for the correct network', () => {
+  it('#getSelectedNetworkDetails should throw an error if no data received from the server', () => {
+    expect(() => getSelectedNetworkDetails([], 'kau-testnet')).to.throw()
+  })
+
+  it('#getSelectedNetworkDetails throws an error if no network name is selected', () => {
+    const networks = [
+      {
+        horizonURL: 'https://kau-testnet/kinesisgroup.io'
+      },
+      {
+        horizonURL: 'https://kau-livenet/kinesisgroup.io'
+      }
+    ]
+
+    expect(() => getSelectedNetworkDetails(networks, undefined)).to.throw()
+  })
+
+  it('#getSelectedNetworkDetails throws an error if no horizonURL key is found', () => {
+    const networks = [
+      {
+        name: "Kinesis KAU Testnet",
+      },
+      {
+        name: "Kinesis KAU Livenet",
+        horizonURL: 'https://kau-livenet/kinesisgroup.io'
+      }
+    ]
+
+    expect(() => getSelectedNetworkDetails(networks, 'kau-testnet')).to.throw(Error, 'Some required data are missing.')
+    expect(() => getSelectedNetworkDetails(networks, 'kau-livenet')).to.not.throw()
+  })
+
+  it('#getSelectedNetworkDetails returns the horizonURL for the correct network', () => {
     const networks = [
       {
         horizonURL: 'https://kau-testnet/kinesisgroup.io'

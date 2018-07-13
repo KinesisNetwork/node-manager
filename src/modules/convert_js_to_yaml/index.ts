@@ -43,8 +43,12 @@ export default async function generateYamlConfigFile(yamlConfigInput: YamlConfig
   convertJsIntoYaml(deploymentConfigInJs)
 }
 
-export function getSelectedNetworkDetails(serverDetails: any[], networkChosen: string): any {
-  const [networkDetails] = serverDetails.filter(({ horizonURL }) => horizonURL.includes(networkChosen))
+export function getSelectedNetworkDetails(networks: any[], networkChosen: string): any {
+  const [networkDetails] = networks.filter(({ horizonURL }) => horizonURL && horizonURL.includes(networkChosen))
+
+  if (!networkDetails) {
+    throw new Error('Some required data are missing.')
+  }
   return networkDetails
 }
 
