@@ -28,6 +28,9 @@ export default async function generateYamlConfigFile(yamlConfigInput: YamlConfig
 
   const keypair = generateKeypair()
 
+  checkIfBucketExists()
+  checkFoldersInBucket(yamlConfigInput.nodeName)
+
   const deploymentConfigInJs = getDeploymentConfig({
     nodeNameByUser: yamlConfigInput.nodeName,
     userKeys: keypair,
@@ -62,6 +65,31 @@ function generateKeypair(): any {
     publicKey: keypair.publicKey(),
     seed: keypair.secret()
   }
+}
+
+function checkIfBucketExists() {
+  try {
+    fs.accessSync('buckets')
+  } catch (e) {
+    fs.mkdirSync('buckets')
+    initialisedVorpal.log(chalk.green('Buckets created.'))
+  }
+}
+
+function checkFoldersInBucket(nodeName: string): void {
+  try {
+    fs.accessSync(`buckets/${nodeName}`)
+    createFoldersInBucket(nodeName)
+  } catch (error) {
+    fs.mkdirSync(`buckets/${nodeName}`)
+    createFoldersInBucket(nodeName)
+  }
+}
+
+function createFoldersInBucket(nodeName: string): void {
+  fs.mkdirSync(`buckets/${nodeName}/pgdata`)
+  fs.mkdirSync(`buckets/${nodeName}/coredata`)
+  initialisedVorpal.log(chalk.green('Bucket folders created.'))
 }
 
 function convertJsIntoYaml(configInJs: any): void {

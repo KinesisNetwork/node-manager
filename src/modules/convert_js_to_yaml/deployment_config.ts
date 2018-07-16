@@ -17,6 +17,9 @@ export default function getDeploymentConfig(deploymentConfigVariables: Deploymen
         environment: [
           'POSTGRES_PASSWORD=dbpw',
           'POSTGRES_DB = postgres'
+        ],
+        volumes: [
+          `./buckets/${deploymentConfigVariables.nodeNameByUser}/pgdata:/var/lib/postgresql/data`
         ]
       },
       node: {
@@ -53,11 +56,14 @@ export default function getDeploymentConfig(deploymentConfigVariables: Deploymen
           'kinesis-network-history/' + deploymentConfigVariables.selectedNetwork + '/%s/{0} -o {1}',
           'STELLAR_DB=stellar',
           'HORIZON_DB=horizon'
+        ],
+        volumes: [
+          `./buckets/${deploymentConfigVariables.nodeNameByUser}/coredata:/data`
         ]
       },
       horizon: {
         image: 'abxit/kinesis-horizon:testnet-v1',
-        ports: ['8000:8000'],
+        ports: ['8000'],
         environment: [
           'DATABASE_URL=postgresql://postgres:dbpw@db:5432/horizon?sslmode=disable',
           'STELLAR_CORE_DATABASE_URL=postgresql://postgres:dbpw@db:5432/stellar?sslmode=disable',
