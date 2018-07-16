@@ -10,7 +10,7 @@ export function fetchNetworksAndRegions(): Promise<any> {
 
 export function fetchKinesisServerDetails(): Promise<any> {
   return rp({
-    uri: 'https://s3-ap-southeast-2.amazonaws.com/kinesis-config/kinesis-server-details.json',
+    uri: 'https://s3-ap-southeast-2.amazonaws.com/kinesis-confi/kinesis-server-details.json',
     method: 'GET',
     json: true,
   })

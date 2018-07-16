@@ -4,6 +4,7 @@ interface DeploymentConfigVariables {
   selectedNodesConfigs: SelectedNodesConfigs
   networkPassphrase: string
   selectedNetwork: string
+  port: string
 }
 
 interface SelectedNodesConfigs {
@@ -21,4 +22,5 @@ interface YamlConfigInput {
   networkChosen: string
   nodesData: any[]
   nodeName: string
+  port: string
 }

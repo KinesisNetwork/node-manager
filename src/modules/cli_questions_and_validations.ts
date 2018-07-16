@@ -48,6 +48,20 @@ export function giveNameToUserNode() {
     ])
 }
 
+export function providePortNumber() {
+  return inquirer
+    .prompt([
+      {
+        type: 'input',
+        message: 'Please enter a port number between 8000 and 8999.',
+        name: 'port',
+        validate(answer) {
+          return validatePort(answer)
+        }
+      }
+    ])
+}
+
 export function userNodeNameValidation(userNodeName) {
   if (!userNodeName) {
     return 'Please enter a valid node name!'
@@ -56,6 +70,23 @@ export function userNodeNameValidation(userNodeName) {
   const specialCharacters = /[-`~!@#%&_=;:'",\$\^\*\(\)\+\{\}\[\]\|\.\<\>\?\/\\]/g
   if (specialCharacters.test(userNodeName)) {
     return 'You may only use letters and numbers!'
+  }
+
+  return true
+}
+
+function validatePort(portNumber) {
+  const port = Number(portNumber)
+  if (!port) {
+    return 'You may only use numbers.'
+  }
+
+  if (!Number.isInteger(port)) {
+    return 'Please enter an integer.'
+  }
+
+  if (port < 8000 || port > 8999) {
+    return 'Please enter a port number between 8000 and 8999.'
   }
 
   return true

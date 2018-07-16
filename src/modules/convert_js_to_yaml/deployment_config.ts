@@ -63,7 +63,7 @@ export default function getDeploymentConfig(deploymentConfigVariables: Deploymen
       },
       horizon: {
         image: 'abxit/kinesis-horizon:testnet-v1',
-        ports: ['8000'],
+        ports: [`${deploymentConfigVariables.port}:8000`],
         environment: [
           'DATABASE_URL=postgresql://postgres:dbpw@db:5432/horizon?sslmode=disable',
           'STELLAR_CORE_DATABASE_URL=postgresql://postgres:dbpw@db:5432/stellar?sslmode=disable',

@@ -6,6 +6,7 @@ import {
 import {
   chooseNetwork,
   giveNameToUserNode,
+  providePortNumber,
   removeWhiteSpaceAndConvertToUppercase
 } from '../modules/cli_questions_and_validations'
 
@@ -17,8 +18,9 @@ export default async function startNodeManager(configFile: any = {}): Promise<an
   const networkChosen: string = (await chooseNetwork(Object.keys(networksAndRegions))).network
   const nodesSelectedWithAllData: any[] = await getSelectedNodesWithAllData(networksAndRegions[networkChosen])
   const nodeName: string = removeWhiteSpaceAndConvertToUppercase((await giveNameToUserNode()).nodeName)
+  const port: string = (await providePortNumber()).port
 
-  await generateYamlConfigFile({ networkChosen, nodesData: nodesSelectedWithAllData, nodeName })
+  await generateYamlConfigFile({ networkChosen, nodesData: nodesSelectedWithAllData, nodeName, port })
 
   return { networkChosen, nodeName }
 }

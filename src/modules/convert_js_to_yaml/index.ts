@@ -12,14 +12,7 @@ import { fetchKinesisServerDetails } from '../fetch_data'
 const initialisedVorpal = vorpal()
 
 export default async function generateYamlConfigFile(yamlConfigInput: YamlConfigInput): Promise<any> {
-  let kinesisServerDetails: any[]
-  try {
-    kinesisServerDetails = await fetchKinesisServerDetails()
-  } catch (error) {
-    initialisedVorpal.log(chalk.red(error.message))
-    return
-  }
-
+  const kinesisServerDetails = await fetchKinesisServerDetails()
   const networkDetails = getSelectedNetworkDetails(kinesisServerDetails, yamlConfigInput.networkChosen)
 
   const publicKeysFromSelectedNodes = extractValuesFromSelectedNodes(yamlConfigInput.nodesData, 'publicKey')
@@ -40,7 +33,8 @@ export default async function generateYamlConfigFile(yamlConfigInput: YamlConfig
       names: namesFromSelectedNodes
     },
     networkPassphrase: networkDetails.networkPassphrase,
-    selectedNetwork: yamlConfigInput.networkChosen
+    selectedNetwork: yamlConfigInput.networkChosen,
+    port: yamlConfigInput.port
   })
 
   convertJsIntoYaml(deploymentConfigInJs)
