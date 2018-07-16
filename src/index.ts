@@ -12,6 +12,7 @@ import {
   checkIfDockerInstalled,
   dockerStackDeploy,
   logErrors,
+  runDockerCompose,
   runDockerSwarmInit
 } from './modules/run_commands_in_exec'
 
@@ -28,6 +29,7 @@ figlet('KINESIS MANAGER', (_, d) => {
         const { networkChosen: userNetwork, nodeName: userNodeName } = await startNodeManager()
 
         await runDockerSwarmInit()
+        await runDockerCompose()
         await dockerStackDeploy(userNetwork, userNodeName)
       } catch (error) {
         logErrors(error.message)
@@ -55,6 +57,7 @@ figlet('KINESIS MANAGER', (_, d) => {
         } = await startNodeManager(getLocalConfigFile())
 
         await runDockerSwarmInit()
+        await runDockerCompose()
         await dockerStackDeploy(userNetwork, userNodeName)
       } catch (error) {
         logErrors(error.message)

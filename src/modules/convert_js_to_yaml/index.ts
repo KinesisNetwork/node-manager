@@ -60,7 +60,7 @@ function generateKeypair(): any {
   const keypair = Keypair.random()
   return {
     publicKey: keypair.publicKey(),
-    privateKey: keypair.secret()
+    seed: keypair.secret()
   }
 }
 

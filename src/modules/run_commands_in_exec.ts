@@ -21,15 +21,23 @@ export function runCommandInTerminal(command: string): Promise<ChildProcess> {
   })
 }
 
-export function checkIfDockerInstalled() {
-  return runCommandInTerminal('docker')
+export async function checkIfDockerInstalled() {
+  initialisedVorpal.log(chalk.yellow('Checking if Docker is installed...'))
+  await runCommandInTerminal('docker')
 }
 
-export function runDockerSwarmInit() {
-  return runCommandInTerminal('docker swarm init')
+export async function runDockerSwarmInit() {
+  initialisedVorpal.log(chalk.yellow('Checking if Docker is in swarm mode...'))
+  await runCommandInTerminal('docker swarm init')
+}
+
+export async function runDockerCompose() {
+  initialisedVorpal.log(chalk.yellow('Pulling Docker images...'))
+  await runCommandInTerminal('docker-compose -f deployment_config.yml pull')
 }
 
 export async function dockerStackDeploy(userNetwork: any, userNodeName: any) {
+  initialisedVorpal.log(chalk.yellow('Deploying stack...'))
   await runCommandInTerminal(`docker stack deploy --compose-file deployment_config.yml ${userNetwork}-${userNodeName}`)
 }
 
