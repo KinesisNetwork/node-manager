@@ -4,7 +4,6 @@ export default function getDeploymentConfig(deploymentConfigVariables: Deploymen
     ...deploymentConfigVariables.selectedNodesConfigs.publicKeys
   ]
   const historyPeers = [
-    deploymentConfigVariables.nodeNameByUser,
     ...deploymentConfigVariables.selectedNodesConfigs.names
   ]
 
