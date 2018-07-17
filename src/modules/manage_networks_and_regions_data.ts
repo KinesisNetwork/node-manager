@@ -14,7 +14,7 @@ export async function networksAndRegionsLookup(configFile: any = {}): Promise<an
       await fetchNetworksAndRegions()
 
     if (!Object.keys(networksAndRegions).length) {
-      throw Error('No network and nodes data could be found.')
+      return Promise.reject('No network and nodes data could be found.')
     }
   } catch (error) {
     initialisedVorpal.log(chalk.red(error.message))
