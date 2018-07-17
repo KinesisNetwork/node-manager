@@ -13,7 +13,7 @@ export async function networksAndRegionsLookup(configFile: any = {}): Promise<an
       configFile :
       await fetchNetworksAndRegions()
 
-    if (!networksAndRegions || networksAndRegions === {}) {
+    if (!Object.keys(networksAndRegions).length) {
       throw Error('No network and nodes data could be found.')
     }
   } catch (error) {
