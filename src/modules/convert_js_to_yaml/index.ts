@@ -13,6 +13,10 @@ const initialisedVorpal = vorpal()
 
 export default async function generateYamlConfigFile(yamlConfigInput: YamlConfigInput): Promise<any> {
   const kinesisServerDetails = await fetchKinesisServerDetails()
+  if (!kinesisServerDetails.length) {
+    return Promise.reject('No server details could be found.')
+  }
+
   const networkDetails = getSelectedNetworkDetails(kinesisServerDetails, yamlConfigInput.networkChosen)
 
   const publicKeysFromSelectedNodes = extractValuesFromSelectedNodes(yamlConfigInput.nodesData, 'publicKey')
