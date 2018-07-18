@@ -4,3 +4,4 @@ deployment_config.yml
 network_config.json
 buckets/*
 !buckets/README.md
+.nyc_output

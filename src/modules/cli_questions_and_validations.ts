@@ -75,7 +75,7 @@ export function userNodeNameValidation(userNodeName) {
   return true
 }
 
-function validatePort(portNumber) {
+export function validatePort(portNumber) {
   const port = Number(portNumber)
   if (!port) {
     return 'You may only use numbers.'

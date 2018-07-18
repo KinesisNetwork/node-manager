@@ -4,7 +4,8 @@ import * as nock from 'nock'
 
 import {
   removeWhiteSpaceAndConvertToUppercase,
-  userNodeNameValidation
+  userNodeNameValidation,
+  validatePort
 } from '../modules/cli_questions_and_validations'
 import generateYamlConfigFile from '../modules/convert_js_to_yaml'
 
@@ -30,6 +31,26 @@ describe('cli questions and validations', () => {
     const returnedWarningMessage = userNodeNameValidation('^Bob & Liz $\'')
 
     expect(returnedWarningMessage).to.equal('You may only use letters and numbers!')
+  })
+
+  describe('#validatePort', () => {
+    it('returns true if a number between 8000 and 8999 is entered', () => {
+      expect(validatePort('7999')).to.equal('Please enter a port number between 8000 and 8999.')
+      expect(validatePort('9000')).to.equal('Please enter a port number between 8000 and 8999.')
+      // tslint:disable-next-line:no-unused-expression
+      expect(validatePort('8000')).to.be.true
+    })
+
+    it('gives back an error message if not a number type is entered', () => {
+      expect(validatePort('hello')).to.equal('You may only use numbers.')
+      expect(validatePort('')).to.equal('You may only use numbers.')
+      // tslint:disable-next-line:no-unused-expression
+      expect(validatePort('8005')).to.be.true
+    })
+
+    it('returns a message if the number entered is not an integer', () => {
+      expect(validatePort('3.14')).to.equal('Please enter an integer.')
+    })
   })
 })
 
