@@ -57,7 +57,7 @@ export function extractValuesFromSelectedNodes(selectedNodes: any[], nodePropert
   return selectedNodes.map((node) => node[nodeProperty])
 }
 
-function generateKeypair(): any {
+export function generateKeypair(): any {
   const keypair = Keypair.random()
   return {
     publicKey: keypair.publicKey(),

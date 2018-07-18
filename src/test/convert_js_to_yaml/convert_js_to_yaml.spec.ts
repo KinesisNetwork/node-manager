@@ -4,6 +4,7 @@ import * as nock from 'nock'
 
 import generateYamlConfigFile, {
   extractValuesFromSelectedNodes,
+  generateKeypair,
   getSelectedNetworkDetails
 } from '../../modules/convert_js_to_yaml'
 
@@ -98,6 +99,14 @@ describe('convert js to yaml', () => {
     expect(valuesResult).to.be.an('array')
     expect(valuesResult).to.have.lengthOf(3)
     expect(valuesResult).to.deep.equal(expectedValues)
+  })
+
+  it('#generateKeypair returns an object with public key and seed', () => {
+    const keypair = generateKeypair()
+
+    expect(keypair).to.be.an('object')
+    expect(keypair).to.have.property('publicKey')
+    expect(keypair).to.have.property('seed')
   })
 })
 
