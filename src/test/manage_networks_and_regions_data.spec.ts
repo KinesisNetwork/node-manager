@@ -5,7 +5,8 @@ import * as nock from 'nock'
 import {
   flattenNodesList,
   getSelectedNodeData,
-  networksAndRegionsLookup
+  networksAndRegionsLookup,
+  removeWhiteSpaceAndConvertToUppercase
 } from '../modules/manage_networks_and_regions_data'
 
 const { expect } = chai.use(chaiAsPromised)
@@ -103,6 +104,15 @@ describe('node_manager_logic', () => {
 
     expect(nodesListResult).to.have.lengthOf(3)
     expect(nodesListResult).to.deep.equal(expectedNodesList)
+  })
+
+  it('#removeWhiteSpaceAndConvertToUppercase should return uppercase name with no whitespace', () => {
+    const userNodeName = 'bob3s and lizs node'
+
+    const expectedNodeName = 'BOB3SANDLIZSNODE'
+    const convertedNodeName = removeWhiteSpaceAndConvertToUppercase(userNodeName)
+
+    expect(convertedNodeName).to.equal(expectedNodeName)
   })
 })
 
