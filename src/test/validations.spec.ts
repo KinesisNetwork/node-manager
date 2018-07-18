@@ -1,6 +1,7 @@
 import { expect } from 'chai'
 
 import {
+  hasAtLeastSixNodesSelected,
   userNodeNameValidation,
   validatePort
 } from '../modules/cli_questions_and_validations/validators'
@@ -37,6 +38,21 @@ describe('cli questions and validations', () => {
 
     it('returns a message if the number entered is not an integer', () => {
       expect(validatePort('3.14')).to.equal('Please enter an integer.')
+    })
+  })
+
+  describe('#hasAtLeastSixNodesSelected', () => {
+    it('returns an error message if less than six nodes have been selected', () => {
+      const nodes = ['node1', 'node2', 'node3']
+
+      expect(hasAtLeastSixNodesSelected(nodes)).to.equal('You must select at least six nodes.')
+    })
+
+    it('returns true if at least six nodes have been selected', () => {
+      const nodes = ['node1', 'node2', 'node3', 'node4', 'node5', 'node6']
+
+      // tslint:disable-next-line:no-unused-expression
+      expect(hasAtLeastSixNodesSelected(nodes)).to.be.true
     })
   })
 })
