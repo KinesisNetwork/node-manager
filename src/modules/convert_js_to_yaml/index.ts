@@ -1,15 +1,15 @@
-import chalk from 'chalk'
 import * as fs from 'fs'
 import { Keypair } from 'js-kinesis-sdk'
 import * as yaml from 'js-yaml'
 import * as path from 'path'
-import * as vorpal from 'vorpal'
 
 import getDeploymentConfig from './deployment_config'
 
 import { fetchKinesisServerDetails } from '../fetch_data'
-
-const initialisedVorpal = vorpal()
+import {
+  checkFoldersInBucket,
+  checkIfBucketExists
+} from './create_folders'
 
 export default async function generateYamlConfigFile(yamlConfigInput: YamlConfigInput): Promise<any> {
   const kinesisServerDetails = await fetchKinesisServerDetails()
@@ -63,31 +63,6 @@ function generateKeypair(): any {
     publicKey: keypair.publicKey(),
     seed: keypair.secret()
   }
-}
-
-function checkIfBucketExists() {
-  try {
-    fs.accessSync('buckets')
-  } catch (e) {
-    fs.mkdirSync('buckets')
-    initialisedVorpal.log(chalk.green('Buckets created.'))
-  }
-}
-
-function checkFoldersInBucket(nodeName: string): void {
-  try {
-    fs.accessSync(`buckets/${nodeName}`)
-    createFoldersInBucket(nodeName)
-  } catch (error) {
-    fs.mkdirSync(`buckets/${nodeName}`)
-    createFoldersInBucket(nodeName)
-  }
-}
-
-function createFoldersInBucket(nodeName: string): void {
-  fs.mkdirSync(`buckets/${nodeName}/pgdata`)
-  fs.mkdirSync(`buckets/${nodeName}/coredata`)
-  initialisedVorpal.log(chalk.green('Bucket folders created.'))
 }
 
 function convertJsIntoYaml(configInJs: any): void {

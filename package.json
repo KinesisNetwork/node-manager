@@ -8,8 +8,8 @@
     "lint": "tslint --project tsconfig.json",
     "lint-fix": "tslint --project tsconfig.json --fix",
     "start": "npm run lint && npm run compile && node dist/index.js",
-    "test": "npm run compile && nyc mocha dist/**/*.spec.js",
-    "test-watch": "npm run compile && nyc mocha dist/**/*.spec.js -w"
+    "test": "npm run compile && nyc mocha dist/test/**/*.spec.js",
+    "test-watch": "npm run compile && nyc mocha dist/test/**/*.spec.js -w"
   },
   "repository": {
     "type": "git",
@@ -46,6 +46,7 @@
     "chai": "^4.1.2",
     "chai-as-promised": "^7.1.1",
     "mocha": "^5.2.0",
+    "mock-fs": "^4.5.0",
     "nock": "^9.4.2",
     "nyc": "^12.0.2",
     "sinon": "^6.1.3"

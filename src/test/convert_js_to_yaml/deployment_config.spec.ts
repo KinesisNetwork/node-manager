@@ -1,6 +1,6 @@
 import { expect } from 'chai'
 
-import getDeploymentConfig from '../modules/convert_js_to_yaml/deployment_config'
+import getDeploymentConfig from '../../modules/convert_js_to_yaml/deployment_config'
 
 const configVariables = () => {
   return {

@@ -8,7 +8,7 @@ import {
   giveNameToUserNode,
   providePortNumber,
   selectNodes
-} from '../modules/cli_questions_and_validations'
+} from '../../modules/cli_questions_and_validations'
 
 describe('cli questions', () => {
   let inquirerStub

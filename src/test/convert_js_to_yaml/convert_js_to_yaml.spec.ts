@@ -5,7 +5,7 @@ import * as nock from 'nock'
 import generateYamlConfigFile, {
   extractValuesFromSelectedNodes,
   getSelectedNetworkDetails
-} from '../modules/convert_js_to_yaml'
+} from '../../modules/convert_js_to_yaml'
 
 const { expect } = chai.use(chaiAsPromised)
 

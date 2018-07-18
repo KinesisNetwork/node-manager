@@ -4,7 +4,7 @@ import {
   hasAtLeastSixNodesSelected,
   userNodeNameValidation,
   validatePort
-} from '../modules/cli_questions_and_validations/validators'
+} from '../../modules/cli_questions_and_validations/validators'
 
 describe('cli questions and validations', () => {
   describe('#userNodeNameValidation', () => {
