@@ -35,7 +35,7 @@ describe('convert js to yaml', () => {
     ]
 
     expect(() => getSelectedNetworkDetails(networks, 'kau-testnet'))
-      .to.throw(Error, 'Couldn\'t find either a url or a network passphrase for the selected network.')
+      .to.throw(Error, 'No network and nodes data could be found.')
     expect(() => getSelectedNetworkDetails(networks, 'kau-livenet')).to.not.throw()
   })
 

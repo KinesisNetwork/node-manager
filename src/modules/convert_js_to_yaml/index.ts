@@ -14,7 +14,7 @@ const initialisedVorpal = vorpal()
 export default async function generateYamlConfigFile(yamlConfigInput: YamlConfigInput): Promise<any> {
   const kinesisServerDetails = await fetchKinesisServerDetails()
   if (!kinesisServerDetails.length) {
-    return Promise.reject('No server details could be found.')
+    return Promise.reject(CustomError.serverError)
   }
 
   const networkDetails = getSelectedNetworkDetails(kinesisServerDetails, yamlConfigInput.networkChosen)
@@ -48,7 +48,7 @@ export function getSelectedNetworkDetails(networks: any[], networkChosen: string
   const [networkDetails] = networks.filter(({ horizonURL }) => horizonURL && horizonURL.includes(networkChosen))
 
   if (!networkDetails) {
-    throw new Error('Couldn\'t find either a url or a network passphrase for the selected network.')
+    throw new Error(CustomError.dataError)
   }
   return networkDetails
 }

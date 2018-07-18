@@ -14,7 +14,7 @@ export async function networksAndRegionsLookup(configFile: any = {}): Promise<an
       await fetchNetworksAndRegions()
 
     if (!Object.keys(networksAndRegions).length) {
-      return Promise.reject('No network and nodes data could be found.')
+      return Promise.reject(CustomError.dataError)
     }
   } catch (error) {
     initialisedVorpal.log(chalk.red(error.message))
@@ -36,7 +36,7 @@ export function getSelectedNodeData(selectedNodesList: any[], allNodes: any): an
 
 export function flattenNodesList(networkChosen: any): any {
   if (!networkChosen || !Object.keys(networkChosen).length) {
-    throw new Error('No nodeslist received from the user.')
+    throw new Error(CustomError.userError)
   }
   return Object.entries(networkChosen).reduce(addRegionToNodes, {})
 }

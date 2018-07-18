@@ -18,7 +18,7 @@ export default function getDeploymentConfig(deploymentConfigVariables: Deploymen
           'POSTGRES_DB = postgres'
         ],
         volumes: [
-          `./buckets/${deploymentConfigVariables.nodeNameByUser}/pgdata:/var/lib/postgresql/data`
+          `${process.cwd()}/buckets/${deploymentConfigVariables.nodeNameByUser}/pgdata:/var/lib/postgresql/data`
         ]
       },
       node: {
@@ -57,7 +57,7 @@ export default function getDeploymentConfig(deploymentConfigVariables: Deploymen
           'HORIZON_DB=horizon'
         ],
         volumes: [
-          `./buckets/${deploymentConfigVariables.nodeNameByUser}/coredata:/data`
+          `${process.cwd()}/buckets/${deploymentConfigVariables.nodeNameByUser}/coredata:/data`
         ]
       },
       horizon: {
