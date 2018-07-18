@@ -41,7 +41,7 @@ export default async function generateYamlConfigFile(yamlConfigInput: YamlConfig
     port: yamlConfigInput.port
   })
 
-  convertJsIntoYaml(deploymentConfigInJs)
+  convertJsIntoYamlAndWriteOnFs(deploymentConfigInJs)
 }
 
 export function getSelectedNetworkDetails(networks: any[], networkChosen: string): any {
@@ -65,7 +65,7 @@ export function generateKeypair(): any {
   }
 }
 
-function convertJsIntoYaml(configInJs: any): void {
+export function convertJsIntoYamlAndWriteOnFs(configInJs: any): void {
   const deploymentYaml = yaml.safeDump(configInJs)
   const deploymentFilePath = path.join(__dirname, '../../../', 'deployment_config.yml')
   fs.writeFileSync(deploymentFilePath, deploymentYaml)

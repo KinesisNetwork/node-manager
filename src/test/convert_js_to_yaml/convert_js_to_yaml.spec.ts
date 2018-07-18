@@ -1,11 +1,14 @@
 import * as chai from 'chai'
 import * as chaiAsPromised from 'chai-as-promised'
+import * as fs from 'fs'
+import * as mockFs from 'mock-fs'
 import * as nock from 'nock'
 
 import generateYamlConfigFile, {
+  convertJsIntoYamlAndWriteOnFs,
   extractValuesFromSelectedNodes,
   generateKeypair,
-  getSelectedNetworkDetails
+  getSelectedNetworkDetails,
 } from '../../modules/convert_js_to_yaml'
 
 const { expect } = chai.use(chaiAsPromised)
@@ -123,5 +126,31 @@ describe('#generateYamlConfigFile', () => {
 
     expect(generateYamlConfigFile({ networkChosen, nodesData, nodeName, port }))
       .to.be.rejectedWith('No server details could be found.')
+  })
+})
+
+describe('convertJsIntoYaml', () => {
+  before(() => {
+    const setUpRootDirectory = () => {
+      return mockFs()
+    }
+
+    setUpRootDirectory()
+  })
+
+  after(() => {
+    mockFs.restore()
+  })
+
+  it('writes a yaml file on the file system given an object config input', () => {
+    const deploymentConfigAsObject = {
+      version: '3'
+    }
+
+    convertJsIntoYamlAndWriteOnFs(deploymentConfigAsObject)
+    const fileCreated = fs.readdirSync(process.cwd())
+
+    expect(fileCreated).to.have.lengthOf(1)
+    expect(fileCreated[0]).to.equal('deployment_config.yml')
   })
 })
