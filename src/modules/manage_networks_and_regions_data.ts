@@ -50,3 +50,9 @@ export function addRegionToNodes(nodeList: any, [region, nodes]): any {
 
   return { ...nodeList, ...regionNodeList }
 }
+
+export function removeWhiteSpaceAndConvertToUppercase(userNodeName: string) {
+  return userNodeName
+    .replace(/[\s]/g, '')
+    .toUpperCase()
+}

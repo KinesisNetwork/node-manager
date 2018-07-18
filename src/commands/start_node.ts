@@ -7,8 +7,9 @@ import {
   chooseNetwork,
   giveNameToUserNode,
   providePortNumber,
-  removeWhiteSpaceAndConvertToUppercase
 } from '../modules/cli_questions_and_validations'
+
+import { removeWhiteSpaceAndConvertToUppercase } from '../modules/manage_networks_and_regions_data'
 
 import generateYamlConfigFile from '../modules/convert_js_to_yaml'
 

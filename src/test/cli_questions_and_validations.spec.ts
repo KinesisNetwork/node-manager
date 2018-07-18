@@ -1,10 +1,11 @@
 import { expect } from 'chai'
 
 import {
-  removeWhiteSpaceAndConvertToUppercase,
   userNodeNameValidation,
   validatePort
-} from '../modules/cli_questions_and_validations'
+} from '../modules/cli_questions_and_validations/validators'
+
+import { removeWhiteSpaceAndConvertToUppercase } from '../modules/manage_networks_and_regions_data'
 
 describe('cli questions and validations', () => {
   it('#removeWhiteSpaceAndConvertToUppercase should return uppercase name with no whitespace', () => {
