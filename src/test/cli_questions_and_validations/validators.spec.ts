@@ -8,36 +8,31 @@ import {
 
 describe('cli questions and validations', () => {
   describe('#userNodeNameValidation', () => {
-    it('returns warning message if nothing is entered', () => {
-      const returnedWarningMessage = userNodeNameValidation('')
-
-      expect(returnedWarningMessage).to.equal('Please enter a valid node name!')
+    it('returnstrue if a string with no special characters is entered', () => {
+      // tslint:disable-next-line:no-unused-expression
+      expect(userNodeNameValidation('Bob and Liz 4')).to.be.true
     })
 
-    it('should return warning message if the input contains special characters', () => {
-      const returnedWarningMessage = userNodeNameValidation('^Bob & Liz $\'')
-
-      expect(returnedWarningMessage).to.equal('You may only use letters and numbers!')
+    it('returns error message if ', () => {
+      expect(userNodeNameValidation('')).to.equal('Incorrect user input received.')
+      expect((userNodeNameValidation('^Bob & Liz $\''))).to.equal('Incorrect user input received.')
     })
   })
 
   describe('#validatePort', () => {
     it('returns true if a number between 8000 and 8999 is entered', () => {
-      expect(validatePort('7999')).to.equal('Please enter a port number between 8000 and 8999.')
-      expect(validatePort('9000')).to.equal('Please enter a port number between 8000 and 8999.')
       // tslint:disable-next-line:no-unused-expression
       expect(validatePort('8000')).to.be.true
-    })
-
-    it('gives back an error message if not a number type is entered', () => {
-      expect(validatePort('hello')).to.equal('You may only use numbers.')
-      expect(validatePort('')).to.equal('You may only use numbers.')
       // tslint:disable-next-line:no-unused-expression
-      expect(validatePort('8005')).to.be.true
+      expect(validatePort('8299')).to.be.true
     })
 
-    it('returns a message if the number entered is not an integer', () => {
-      expect(validatePort('3.14')).to.equal('Please enter an integer.')
+    it('gives back a user error message if not the correct input is received', () => {
+      expect(validatePort('hello')).to.equal('Incorrect user input received.')
+      expect(validatePort('')).to.equal('Incorrect user input received.')
+      expect(validatePort('8023.65')).to.equal('Incorrect user input received.')
+      expect(validatePort('800')).to.equal('Incorrect user input received.')
+      expect(validatePort('7999')).to.equal('Incorrect user input received.')
     })
   })
 

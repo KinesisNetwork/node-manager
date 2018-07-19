@@ -6,31 +6,22 @@ export function hasAtLeastSixNodesSelected(selectedNodes: string[]): any {
 }
 
 export function userNodeNameValidation(userNodeName) {
-  if (!userNodeName) {
-    return 'Please enter a valid node name!'
-  }
-
   const specialCharacters = /[-`~!@#%&_=;:'",\$\^\*\(\)\+\{\}\[\]\|\.\<\>\?\/\\]/g
-  if (specialCharacters.test(userNodeName)) {
-    return 'You may only use letters and numbers!'
+  if (isValidUserNodeName(userNodeName, specialCharacters)) {
+    return true
   }
 
-  return true
+  return CustomError.userError
+}
+
+function isValidUserNodeName(userNodeName, specialCharacters) {
+  return userNodeName && !specialCharacters.test(userNodeName)
 }
 
 export function validatePort(portNumber) {
-  const port = Number(portNumber)
-  if (!port) {
-    return 'You may only use numbers.'
+  if (portNumber.match(/^8\d{3}$/)) {
+    return true
   }
 
-  if (!Number.isInteger(port)) {
-    return 'Please enter an integer.'
-  }
-
-  if (port < 8000 || port > 8999) {
-    return 'Please enter a port number between 8000 and 8999.'
-  }
-
-  return true
+  return CustomError.userError
 }
