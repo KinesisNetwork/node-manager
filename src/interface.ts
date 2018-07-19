@@ -28,5 +28,5 @@ interface YamlConfigInput {
 const enum CustomError {
   serverError = 'No server details could be found.',
   dataError = 'No network and nodes data could be found.',
-  userError = 'No nodeslist received from the user.'
+  userError = 'Incorrect user input received.'
 }

@@ -44,12 +44,12 @@ figlet('KINESIS MANAGER', (_, d) => {
     .action(async () => {
       initialisedVorpal.log(chalk.dim(userInstructions()))
 
-      const confirmation = (await (confirmExistanceOfLocalNodesConfig())).isConfirmed
-      if (!confirmation) {
-        return
-      }
-
       try {
+        const confirmation = (await (confirmExistanceOfLocalNodesConfig())).isConfirmed
+        if (!confirmation) {
+          throw new Error(CustomError.userError)
+        }
+
         await checkIfDockerInstalled()
         const {
           networkChosen: userNetwork,
