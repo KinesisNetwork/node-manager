@@ -1,5 +1,4 @@
 import { expect } from 'chai'
-// import * as fs from 'fs'
 import * as mockFs from 'mock-fs'
 
 import { getLocalConfigFile } from '../../commands/advanced_node'
